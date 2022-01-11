@@ -1,0 +1,17 @@
+table:
+  name: courses_count_age
+  schema: public
+select_permissions:
+- permission:
+    columns:
+    - age
+    - count
+    filter: {}
+  role: anonymous
+- permission:
+    allow_aggregations: true
+    columns:
+    - age
+    - count
+    filter: {}
+  role: user

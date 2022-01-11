@@ -1,0 +1,1 @@
+alter table "public"."users" add column "has_subscribtion" BOOLEAN NOT NULL DEFAULT FALSE;

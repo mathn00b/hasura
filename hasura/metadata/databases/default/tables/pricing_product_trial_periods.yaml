@@ -1,0 +1,25 @@
+table:
+  name: product_trial_periods
+  schema: pricing
+configuration:
+  custom_column_names:
+    product_id: productId
+    trial_period_id: trialPeriodId
+  custom_name: ProductTrialPeriod
+  custom_root_fields:
+    delete: DeleteProductTrialPeriods
+    delete_by_pk: DeleteProductTrialPeriod
+    insert: AddProductTrialPeriods
+    insert_one: AddProductTrialPeriod
+    select: ProductTrialPeriods
+    select_aggregate: ProductTrialPeriodsAggregate
+    select_by_pk: ProductTrialPeriod
+    update: UpdateProductTrialPeriods
+    update_by_pk: UpdateProductTrialPeriod
+object_relationships:
+- name: priceProduct
+  using:
+    foreign_key_constraint_on: product_id
+- name: trialPeriod
+  using:
+    foreign_key_constraint_on: trial_period_id

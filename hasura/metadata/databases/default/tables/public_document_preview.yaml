@@ -1,0 +1,22 @@
+table:
+  name: document_preview
+  schema: public
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - image_url
+    - sort_order
+    - document_id
+    - id
+    filter: {}
+  role: anonymous
+- permission:
+    allow_aggregations: true
+    columns:
+    - id
+    - document_id
+    - image_url
+    - sort_order
+    filter: {}
+  role: user

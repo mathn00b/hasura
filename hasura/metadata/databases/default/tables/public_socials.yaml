@@ -1,0 +1,28 @@
+table:
+  name: socials
+  schema: public
+array_relationships:
+- name: school_socials
+  using:
+    foreign_key_constraint_on:
+      column: social_id
+      table:
+        name: school_social
+        schema: public
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - url
+    - type
+    - id
+    filter: {}
+  role: anonymous
+- permission:
+    allow_aggregations: true
+    columns:
+    - id
+    - type
+    - url
+    filter: {}
+  role: user

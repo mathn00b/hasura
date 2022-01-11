@@ -1,0 +1,22 @@
+table:
+  name: user_payment_method
+  schema: payment
+configuration:
+  custom_column_names:
+    card_type: cardType
+    default_method: defaultMethod
+    last_digits: lastDigits
+    payment_method_id: paymentMethodId
+    phone_number: phoneNumber
+    user_id: userId
+  custom_name: UserPaymentMethod
+  custom_root_fields:
+    delete: DeleteUserPaymentMethods
+    delete_by_pk: DeleteUserPaymentMethod
+    insert: AddUserPaymentMethods
+    insert_one: AddUserPaymentMethod
+    select: UserPaymentMethods
+    select_aggregate: UserPaymentMethodAggregate
+    select_by_pk: UserPaymentMethod
+    update: UpdateUserPaymentMethods
+    update_by_pk: UpdateUserPaymentMethod

@@ -1,0 +1,63 @@
+table:
+  name: lessons
+  schema: public
+object_relationships:
+- name: course
+  using:
+    foreign_key_constraint_on: course_id
+array_relationships:
+- name: courses_users_views
+  using:
+    foreign_key_constraint_on:
+      column: lesson_id
+      table:
+        name: courses_users_views
+        schema: public
+- name: lesson_results
+  using:
+    foreign_key_constraint_on:
+      column: lesson_id
+      table:
+        name: lesson_results
+        schema: public
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - image
+    - title
+    - url
+    - video_url
+    - duration
+    - number
+    - questions
+    - about
+    - description
+    - created_at
+    - deleted_at
+    - updated_at
+    - course_id
+    - id
+    - section_id
+    filter: {}
+  role: anonymous
+- permission:
+    allow_aggregations: true
+    columns:
+    - id
+    - title
+    - url
+    - description
+    - about
+    - duration
+    - questions
+    - course_id
+    - created_at
+    - updated_at
+    - deleted_at
+    - video_url
+    - image
+    - number
+    - section_id
+    filter: {}
+  role: user

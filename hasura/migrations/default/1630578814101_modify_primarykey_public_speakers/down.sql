@@ -1,0 +1,1 @@
+alter table "public"."speakers" drop constraint "speakers_pkey";

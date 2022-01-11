@@ -1,0 +1,39 @@
+table:
+  name: pre_order
+  schema: public
+object_relationships:
+- name: course
+  using:
+    foreign_key_constraint_on: course_id
+- name: user
+  using:
+    foreign_key_constraint_on: user_id
+insert_permissions:
+- permission:
+    backend_only: false
+    check:
+      _and:
+      - user_id:
+          _eq: X-Hasura-User-Id
+    columns:
+    - course_id
+    set:
+      user_id: x-hasura-User-Id
+  role: user
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - course_id
+    filter:
+      _and:
+      - user_id:
+          _eq: X-Hasura-User-Id
+  role: user
+delete_permissions:
+- permission:
+    filter:
+      _and:
+      - user_id:
+          _eq: X-Hasura-User-Id
+  role: user

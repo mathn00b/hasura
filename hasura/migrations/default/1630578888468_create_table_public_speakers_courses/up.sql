@@ -1,0 +1,1 @@
+CREATE TABLE "public"."speakers_courses" ("id" serial NOT NULL, "speaker_id" UUID NOT NULL, "course_id" UUID NOT NULL, PRIMARY KEY ("id") , FOREIGN KEY ("speaker_id") REFERENCES "public"."speakers"("id") ON UPDATE restrict ON DELETE restrict, FOREIGN KEY ("course_id") REFERENCES "public"."courses"("id") ON UPDATE restrict ON DELETE restrict);

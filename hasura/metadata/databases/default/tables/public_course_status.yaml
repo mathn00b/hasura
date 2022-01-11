@@ -1,0 +1,18 @@
+table:
+  name: course_status
+  schema: public
+array_relationships:
+- name: courses
+  using:
+    foreign_key_constraint_on:
+      column: course_status_id
+      table:
+        name: courses
+        schema: public
+select_permissions:
+- permission:
+    columns:
+    - name
+    - id
+    filter: {}
+  role: user

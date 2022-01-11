@@ -1,0 +1,38 @@
+table:
+  name: edutainments_recommendations
+  schema: public
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - id
+    - name
+    - about
+    - type
+    - school_id
+    - created_at
+    - updated_at
+    - deleted_at
+    - video_url
+    - exclusive
+    - image
+    - duration
+    filter: {}
+  role: anonymous
+- permission:
+    allow_aggregations: true
+    columns:
+    - exclusive
+    - duration
+    - about
+    - created_at
+    - deleted_at
+    - updated_at
+    - id
+    - school_id
+    - image
+    - name
+    - type
+    - video_url
+    filter: {}
+  role: user

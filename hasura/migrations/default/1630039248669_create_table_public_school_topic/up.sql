@@ -1,0 +1,2 @@
+CREATE TABLE "public"."school_topic" ("school_id" uuid NOT NULL DEFAULT gen_random_uuid(), "topic_id" uuid NOT NULL DEFAULT gen_random_uuid(), "id" serial NOT NULL, PRIMARY KEY ("id") , FOREIGN KEY ("school_id") REFERENCES "public"."schools"("id") ON UPDATE restrict ON DELETE restrict, FOREIGN KEY ("topic_id") REFERENCES "public"."topics"("id") ON UPDATE restrict ON DELETE restrict);
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

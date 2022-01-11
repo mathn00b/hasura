@@ -1,0 +1,1 @@
+CREATE TABLE "public"."school_social" ("id" serial NOT NULL, "school_id" uuid NOT NULL, "social_id" uuid NOT NULL, PRIMARY KEY ("id") , FOREIGN KEY ("school_id") REFERENCES "public"."schools"("id") ON UPDATE restrict ON DELETE restrict, FOREIGN KEY ("social_id") REFERENCES "public"."socials"("id") ON UPDATE restrict ON DELETE restrict);

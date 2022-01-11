@@ -1,0 +1,31 @@
+table:
+  name: subscriptions
+  schema: pricing
+configuration:
+  custom_column_names:
+    product_id: productId
+  custom_name: Subscription
+  custom_root_fields:
+    delete: DeleteSubscriptions
+    delete_by_pk: DeleteSubscription
+    insert: AddSubscriptions
+    insert_one: AddSubscription
+    select: Subscriptions
+    select_aggregate: SubscriptionsAggregate
+    select_by_pk: Subscription
+    update: UpdateSubscriptions
+    update_by_pk: UpdateSubscription
+object_relationships:
+- name: priceProduct
+  using:
+    foreign_key_constraint_on: product_id
+array_relationships:
+- name: boughtSubscriptions
+  using:
+    manual_configuration:
+      column_mapping:
+        product_id: product_id
+      insertion_order: null
+      remote_table:
+        name: bought_product
+        schema: payment

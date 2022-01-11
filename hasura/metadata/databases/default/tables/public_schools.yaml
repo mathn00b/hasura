@@ -1,0 +1,77 @@
+table:
+  name: schools
+  schema: public
+array_relationships:
+- name: courses
+  using:
+    foreign_key_constraint_on:
+      column: school_id
+      table:
+        name: courses
+        schema: public
+- name: edutainments
+  using:
+    foreign_key_constraint_on:
+      column: school_id
+      table:
+        name: edutainments
+        schema: public
+- name: school_socials
+  using:
+    foreign_key_constraint_on:
+      column: school_id
+      table:
+        name: school_social
+        schema: public
+- name: school_speakers
+  using:
+    foreign_key_constraint_on:
+      column: school_id
+      table:
+        name: school_speakers
+        schema: public
+- name: school_topics
+  using:
+    foreign_key_constraint_on:
+      column: school_id
+      table:
+        name: school_topic
+        schema: public
+- name: school_users
+  using:
+    foreign_key_constraint_on:
+      column: school_id
+      table:
+        name: school_user
+        schema: public
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - id
+    - title
+    - description
+    - created_at
+    - updated_at
+    - deleted_at
+    - logo_url
+    - banner_url
+    - short_description
+    - sitepage
+    filter: {}
+  role: anonymous
+- permission:
+    allow_aggregations: true
+    columns:
+    - id
+    - title
+    - description
+    - created_at
+    - updated_at
+    - deleted_at
+    - logo_url
+    - banner_url
+    - short_description
+    - sitepage
+    filter: {}
+  role: user

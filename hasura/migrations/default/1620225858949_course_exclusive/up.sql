@@ -1,0 +1,2 @@
+ALTER TABLE public.courses
+    ADD COLUMN exclusive BOOLEAN NOT NULL DEFAULT FALSE;

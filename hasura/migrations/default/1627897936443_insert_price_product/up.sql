@@ -1,0 +1,3 @@
+INSERT INTO pricing.price_products(product_id,product_name, product_price) VALUES (gen_random_uuid(),'product_1', 120.25 ) ON CONFLICT DO NOTHING;
+INSERT INTO pricing.price_products(product_id,product_name, product_price) VALUES (gen_random_uuid(),'product_2', 259.40 ) ON CONFLICT DO NOTHING;
+INSERT INTO pricing.price_products(product_id,product_name, product_price) VALUES (gen_random_uuid(),'product_3', 50.00 ) ON CONFLICT DO NOTHING;

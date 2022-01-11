@@ -1,0 +1,69 @@
+table:
+  name: bought_product
+  schema: payment
+configuration:
+  custom_column_names:
+    expired_date: expiredDate
+    owner_id: ownerId
+    period_type: periodType
+    product_id: productId
+    start_date: startDate
+    subscribe_type: subscribeType
+  custom_name: BoughtProduct
+  custom_root_fields:
+    delete: DeleteBoughtProducts
+    delete_by_pk: DeleteBoughtProduct
+    insert: AddBoughtProducts
+    insert_one: AddBoughtProduct
+    select: BoughtProducts
+    select_aggregate: BoughtProductAggregate
+    select_by_pk: BoughtProduct
+    update: UpdateBoughtProducts
+    update_by_pk: UpdateBoughtProduct
+object_relationships:
+- name: platformProduct
+  using:
+    manual_configuration:
+      column_mapping:
+        product_id: product_id
+      insertion_order: null
+      remote_table:
+        name: price_products
+        schema: pricing
+array_relationships:
+- name: transactions
+  using:
+    foreign_key_constraint_on:
+      column: bought_product_id
+      table:
+        name: transaction
+        schema: payment
+select_permissions:
+- permission:
+    columns:
+    - period_type
+    - subscribe_type
+    - active
+    - owner_id
+    - period
+    - expired_date
+    - start_date
+    - id
+    - product_id
+    - trial
+    filter:
+      owner_id:
+        _eq: X-Hasura-User-Id
+  role: user
+update_permissions:
+- permission:
+    check: {}
+    columns:
+    - subscribe_type
+    filter:
+      _and:
+      - owner_id:
+          _eq: X-Hasura-User-Id
+      - active:
+          _eq: true
+  role: user

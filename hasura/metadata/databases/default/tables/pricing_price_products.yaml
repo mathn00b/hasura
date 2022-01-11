@@ -1,0 +1,52 @@
+table:
+  name: price_products
+  schema: pricing
+configuration:
+  custom_column_names:
+    day_price: dayPrice
+    month_price: monthPrice
+    platform: platform
+    platform_id: platformId
+    product_id: productId
+    product_name: productName
+    product_type: productType
+    year_price: yearPrice
+  custom_name: PriceProduct
+  custom_root_fields:
+    delete: DeletePriceProducts
+    delete_by_pk: DeletePriceProduct
+    insert: AddPriceProducts
+    insert_one: AddPriceProduct
+    select: PriceProducts
+    select_aggregate: PriceProductAggregate
+    select_by_pk: PriceProduct
+    update: UpdatePriceProducts
+    update_by_pk: UpdatePriceProduct
+array_relationships:
+- name: productTrialPeriods
+  using:
+    foreign_key_constraint_on:
+      column: product_id
+      table:
+        name: product_trial_periods
+        schema: pricing
+- name: subscriptions
+  using:
+    foreign_key_constraint_on:
+      column: product_id
+      table:
+        name: subscriptions
+        schema: pricing
+select_permissions:
+- permission:
+    columns:
+    - day_price
+    - month_price
+    - platform
+    - platform_id
+    - product_id
+    - product_name
+    - product_type
+    - year_price
+    filter: {}
+  role: user

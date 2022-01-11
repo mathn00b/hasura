@@ -1,0 +1,51 @@
+table:
+  name: topics
+  schema: public
+array_relationships:
+- name: course_topics
+  using:
+    foreign_key_constraint_on:
+      column: topic_id
+      table:
+        name: course_topic
+        schema: public
+- name: edutainment_topics
+  using:
+    foreign_key_constraint_on:
+      column: topic_id
+      table:
+        name: edutainment_topic
+        schema: public
+- name: school_topics
+  using:
+    foreign_key_constraint_on:
+      column: topic_id
+      table:
+        name: school_topic
+        schema: public
+- name: topics_favorites
+  using:
+    foreign_key_constraint_on:
+      column: topic_id
+      table:
+        name: topics_favorites
+        schema: public
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - id
+    - name
+    - color
+    - image
+    filter: {}
+  role: anonymous
+- permission:
+    allow_aggregations: true
+    columns:
+    - color
+    - name
+    - id
+    - image
+    filter: {}
+  role: user

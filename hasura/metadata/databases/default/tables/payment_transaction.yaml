@@ -1,0 +1,42 @@
+table:
+  name: transaction
+  schema: payment
+configuration:
+  custom_column_names:
+    bought_product_id: boughtProductId
+    cancellation_reason: cancellationReason
+    confirmation_url: confirmationUrl
+    create_date: createDate
+    payment_id: paymentId
+    process_id: processId
+    user_id: userId
+  custom_name: Transaction
+  custom_root_fields:
+    delete: DeleteTransactions
+    delete_by_pk: DeleteTransaction
+    insert: AddTransactions
+    insert_one: AddTransaction
+    select: Transactions
+    select_aggregate: TransactionAggregate
+    select_by_pk: Transaction
+    update: UpdateTransactions
+    update_by_pk: UpdateTransaction
+object_relationships:
+- name: bought_product
+  using:
+    foreign_key_constraint_on: bought_product_id
+select_permissions:
+- permission:
+    columns:
+    - amount
+    - bought_product_id
+    - cancellation_reason
+    - confirmation_url
+    - create_date
+    - process_id
+    - status
+    - user_id
+    filter:
+      user_id:
+        _eq: X-Hasura-User-Id
+  role: user

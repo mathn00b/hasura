@@ -1,0 +1,160 @@
+table:
+  name: courses
+  schema: public
+object_relationships:
+- name: course_status
+  using:
+    foreign_key_constraint_on: course_status_id
+- name: school
+  using:
+    foreign_key_constraint_on: school_id
+array_relationships:
+- name: course_accesses
+  using:
+    foreign_key_constraint_on:
+      column: course_id
+      table:
+        name: course_accesses
+        schema: public
+- name: course_topics
+  using:
+    foreign_key_constraint_on:
+      column: course_id
+      table:
+        name: course_topic
+        schema: public
+- name: courses_additional_files
+  using:
+    foreign_key_constraint_on:
+      column: course_id
+      table:
+        name: courses_additional_files
+        schema: public
+- name: favorites
+  using:
+    foreign_key_constraint_on:
+      column: course_id
+      table:
+        name: favorites
+        schema: public
+- name: lessons
+  using:
+    foreign_key_constraint_on:
+      column: course_id
+      table:
+        name: lessons
+        schema: public
+- name: pre_orders
+  using:
+    foreign_key_constraint_on:
+      column: course_id
+      table:
+        name: pre_order
+        schema: public
+- name: rating_comments
+  using:
+    foreign_key_constraint_on:
+      column: course_id
+      table:
+        name: rating_comment
+        schema: public
+- name: sections
+  using:
+    foreign_key_constraint_on:
+      column: course_id
+      table:
+        name: section
+        schema: public
+- name: skills
+  using:
+    foreign_key_constraint_on:
+      column: course_id
+      table:
+        name: skills
+        schema: public
+- name: speakers
+  using:
+    foreign_key_constraint_on:
+      column: course_id
+      table:
+        name: speakers
+        schema: public
+- name: speakers_courses
+  using:
+    foreign_key_constraint_on:
+      column: course_id
+      table:
+        name: speakers_courses
+        schema: public
+- name: targets
+  using:
+    foreign_key_constraint_on:
+      column: course_id
+      table:
+        name: target
+        schema: public
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - exclusive
+    - has_certificate
+    - has_diploma
+    - has_mentor
+    - intensity_personal
+    - age
+    - image
+    - title
+    - video_url
+    - course_status_id
+    - duration
+    - popularity
+    - price
+    - price_old
+    - intensity
+    - rating
+    - about
+    - description
+    - created_at
+    - deleted_at
+    - updated_at
+    - end_date
+    - start_date
+    - formats
+    - level
+    - id
+    - school_id
+    filter: {}
+  role: anonymous
+- permission:
+    allow_aggregations: true
+    columns:
+    - id
+    - title
+    - description
+    - about
+    - price
+    - level
+    - age
+    - school_id
+    - created_at
+    - updated_at
+    - deleted_at
+    - exclusive
+    - video_url
+    - image
+    - has_mentor
+    - has_certificate
+    - has_diploma
+    - duration
+    - rating
+    - popularity
+    - formats
+    - intensity
+    - intensity_personal
+    - start_date
+    - end_date
+    - course_status_id
+    - price_old
+    filter: {}
+  role: user

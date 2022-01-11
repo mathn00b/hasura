@@ -1,0 +1,1 @@
+ALTER TABLE "public"."speakers" DROP CONSTRAINT "speakers_pkey";

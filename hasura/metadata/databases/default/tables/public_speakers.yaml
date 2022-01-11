@@ -1,0 +1,45 @@
+table:
+  name: speakers
+  schema: public
+object_relationships:
+- name: course
+  using:
+    foreign_key_constraint_on: course_id
+array_relationships:
+- name: school_speakers
+  using:
+    foreign_key_constraint_on:
+      column: speaker_id
+      table:
+        name: school_speakers
+        schema: public
+- name: speakers_courses
+  using:
+    foreign_key_constraint_on:
+      column: speaker_id
+      table:
+        name: speakers_courses
+        schema: public
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - course_id
+    - description
+    - id
+    - image
+    - user_id
+    - user_title
+    filter: {}
+  role: anonymous
+- permission:
+    allow_aggregations: true
+    columns:
+    - course_id
+    - description
+    - id
+    - image
+    - user_id
+    - user_title
+    filter: {}
+  role: user

@@ -1,0 +1,57 @@
+table:
+  name: edutainments
+  schema: public
+object_relationships:
+- name: school
+  using:
+    foreign_key_constraint_on: school_id
+array_relationships:
+- name: edutainment_topics
+  using:
+    foreign_key_constraint_on:
+      column: edutainment_id
+      table:
+        name: edutainment_topic
+        schema: public
+- name: edutainments_favorites
+  using:
+    foreign_key_constraint_on:
+      column: edutainment_id
+      table:
+        name: edutainments_favorites
+        schema: public
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - exclusive
+    - duration
+    - about
+    - created_at
+    - deleted_at
+    - updated_at
+    - id
+    - school_id
+    - image
+    - name
+    - type
+    - video_url
+    filter: {}
+  role: anonymous
+- permission:
+    allow_aggregations: true
+    columns:
+    - about
+    - created_at
+    - deleted_at
+    - duration
+    - exclusive
+    - id
+    - image
+    - name
+    - school_id
+    - type
+    - updated_at
+    - video_url
+    filter: {}
+  role: user

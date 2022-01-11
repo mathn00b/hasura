@@ -1,0 +1,1 @@
+CREATE TABLE "public"."skills" ("id" UUID NOT NULL DEFAULT gen_random_uuid(), "course_id" UUID NOT NULL DEFAULT gen_random_uuid(), "skill" varchar(20), "description" varchar(2000), "sort_order" smallserial NOT NULL, PRIMARY KEY ("id") , FOREIGN KEY ("course_id") REFERENCES "public"."courses"("id") ON UPDATE restrict ON DELETE restrict, UNIQUE ("sort_order"));

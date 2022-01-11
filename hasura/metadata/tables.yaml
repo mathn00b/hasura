@@ -1,0 +1,772 @@
+- table:
+    schema: public
+    name: course_accesses
+  object_relationships:
+  - name: course
+    using:
+      foreign_key_constraint_on: course_id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - user_id
+      - course_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+- table:
+    schema: public
+    name: course_topic
+  object_relationships:
+  - name: course
+    using:
+      foreign_key_constraint_on: course_id
+  - name: topic
+    using:
+      foreign_key_constraint_on: topic_id
+  select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+      - course_id
+      - topic_id
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+      - course_id
+      - topic_id
+      filter: {}
+      allow_aggregations: true
+- table:
+    schema: public
+    name: courses
+  object_relationships:
+  - name: school
+    using:
+      foreign_key_constraint_on: school_id
+  array_relationships:
+  - name: course_accesses
+    using:
+      foreign_key_constraint_on:
+        column: course_id
+        table:
+          schema: public
+          name: course_accesses
+  - name: courses_additional_files
+    using:
+      foreign_key_constraint_on:
+        column: course_id
+        table:
+          schema: public
+          name: courses_additional_files
+  - name: course_topics
+    using:
+      foreign_key_constraint_on:
+        column: course_id
+        table:
+          schema: public
+          name: course_topic
+  - name: favorites
+    using:
+      foreign_key_constraint_on:
+        column: course_id
+        table:
+          schema: public
+          name: favorites
+  - name: lessons
+    using:
+      foreign_key_constraint_on:
+        column: course_id
+        table:
+          schema: public
+          name: lessons
+  - name: speakers
+    using:
+      foreign_key_constraint_on:
+        column: course_id
+        table:
+          schema: public
+          name: speakers
+  select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+      - id
+      - title
+      - description
+      - about
+      - price
+      - level
+      - age
+      - school_id
+      - created_at
+      - updated_at
+      - deleted_at
+      - exclusive
+      - video_url
+      - image
+      - has_mentor
+      - has_certificate
+      - has_diploma
+      - duration
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+      - exclusive
+      - has_certificate
+      - has_diploma
+      - has_mentor
+      - duration
+      - price
+      - about
+      - description
+      - created_at
+      - deleted_at
+      - updated_at
+      - id
+      - school_id
+      - age
+      - image
+      - level
+      - title
+      - video_url
+      filter: {}
+      allow_aggregations: true
+- table:
+    schema: public
+    name: courses_additional_files
+  object_relationships:
+  - name: course
+    using:
+      foreign_key_constraint_on: course_id
+  select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+      - id
+      - course_id
+      - url
+      - title
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+      - course_id
+      - id
+      - title
+      - url
+      filter: {}
+      allow_aggregations: true
+- table:
+    schema: public
+    name: courses_count_age
+  select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+      - age
+      - count
+      filter: {}
+  - role: user
+    permission:
+      columns:
+      - age
+      - count
+      filter: {}
+      allow_aggregations: true
+- table:
+    schema: public
+    name: courses_count_level
+  select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+      - count
+      - level
+      filter: {}
+  - role: user
+    permission:
+      columns:
+      - level
+      - count
+      filter: {}
+      allow_aggregations: true
+- table:
+    schema: public
+    name: courses_users_views
+  object_relationships:
+  - name: lesson
+    using:
+      foreign_key_constraint_on: lesson_id
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+      - user_id
+      - lesson_id
+      - duration
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - user_id
+      - lesson_id
+      - duration
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - duration
+      - lesson_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check: null
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: edutainment_topic
+  object_relationships:
+  - name: edutainment
+    using:
+      foreign_key_constraint_on: edutainment_id
+  - name: topic
+    using:
+      foreign_key_constraint_on: topic_id
+  select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+      - edutainment_id
+      - topic_id
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+      - edutainment_id
+      - topic_id
+      filter: {}
+      allow_aggregations: true
+- table:
+    schema: public
+    name: edutainments
+  object_relationships:
+  - name: school
+    using:
+      foreign_key_constraint_on: school_id
+  array_relationships:
+  - name: edutainments_favorites
+    using:
+      foreign_key_constraint_on:
+        column: edutainment_id
+        table:
+          schema: public
+          name: edutainments_favorites
+  - name: edutainment_topics
+    using:
+      foreign_key_constraint_on:
+        column: edutainment_id
+        table:
+          schema: public
+          name: edutainment_topic
+  select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+      - exclusive
+      - duration
+      - about
+      - created_at
+      - deleted_at
+      - updated_at
+      - id
+      - school_id
+      - image
+      - name
+      - type
+      - video_url
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+      - about
+      - created_at
+      - deleted_at
+      - duration
+      - exclusive
+      - id
+      - image
+      - name
+      - school_id
+      - type
+      - updated_at
+      - video_url
+      filter: {}
+      allow_aggregations: true
+- table:
+    schema: public
+    name: edutainments_favorites
+  object_relationships:
+  - name: edutainment
+    using:
+      foreign_key_constraint_on: edutainment_id
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+      - edutainment_id
+      - user_id
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - user_id
+      - edutainment_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - edutainment_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: edutainments_recommendations
+  select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+      - id
+      - name
+      - about
+      - type
+      - school_id
+      - created_at
+      - updated_at
+      - deleted_at
+      - video_url
+      - exclusive
+      - image
+      - duration
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+      - exclusive
+      - duration
+      - about
+      - created_at
+      - deleted_at
+      - updated_at
+      - id
+      - school_id
+      - image
+      - name
+      - type
+      - video_url
+      filter: {}
+      allow_aggregations: true
+- table:
+    schema: public
+    name: favorites
+  object_relationships:
+  - name: course
+    using:
+      foreign_key_constraint_on: course_id
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+      - course_id
+      - user_id
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - user_id
+      - course_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - course_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check: null
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: lesson_results
+  object_relationships:
+  - name: lesson
+    using:
+      foreign_key_constraint_on: lesson_id
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+      - id
+      - user_id
+      - results
+      - lesson_id
+      - created_at
+      - updated_at
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - results
+      - created_at
+      - updated_at
+      - id
+      - lesson_id
+      - user_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - created_at
+      - id
+      - lesson_id
+      - results
+      - updated_at
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check: null
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: lessons
+  object_relationships:
+  - name: course
+    using:
+      foreign_key_constraint_on: course_id
+  array_relationships:
+  - name: courses_users_views
+    using:
+      foreign_key_constraint_on:
+        column: lesson_id
+        table:
+          schema: public
+          name: courses_users_views
+  - name: lesson_results
+    using:
+      foreign_key_constraint_on:
+        column: lesson_id
+        table:
+          schema: public
+          name: lesson_results
+  select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+      - about
+      - course_id
+      - created_at
+      - deleted_at
+      - description
+      - duration
+      - id
+      - image
+      - number
+      - questions
+      - title
+      - updated_at
+      - url
+      - video_url
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+      - duration
+      - number
+      - questions
+      - about
+      - description
+      - created_at
+      - deleted_at
+      - updated_at
+      - course_id
+      - id
+      - image
+      - title
+      - url
+      - video_url
+      filter: {}
+      allow_aggregations: true
+- table:
+    schema: public
+    name: payments
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - user_id
+      - price
+      - created_at
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: schools
+  array_relationships:
+  - name: courses
+    using:
+      foreign_key_constraint_on:
+        column: school_id
+        table:
+          schema: public
+          name: courses
+  - name: edutainments
+    using:
+      foreign_key_constraint_on:
+        column: school_id
+        table:
+          schema: public
+          name: edutainments
+  select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+      - id
+      - title
+      - description
+      - created_at
+      - updated_at
+      - deleted_at
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+      - description
+      - created_at
+      - deleted_at
+      - updated_at
+      - id
+      - title
+      filter: {}
+      allow_aggregations: true
+- table:
+    schema: public
+    name: speakers
+  object_relationships:
+  - name: course
+    using:
+      foreign_key_constraint_on: course_id
+  select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+      - user_id
+      - course_id
+      - user_title
+      - description
+      - image
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+      - description
+      - course_id
+      - user_id
+      - image
+      - user_title
+      filter: {}
+      allow_aggregations: true
+- table:
+    schema: public
+    name: topics
+  array_relationships:
+  - name: course_topics
+    using:
+      foreign_key_constraint_on:
+        column: topic_id
+        table:
+          schema: public
+          name: course_topic
+  - name: edutainment_topics
+    using:
+      foreign_key_constraint_on:
+        column: topic_id
+        table:
+          schema: public
+          name: edutainment_topic
+  - name: topics_favorites
+    using:
+      foreign_key_constraint_on:
+        column: topic_id
+        table:
+          schema: public
+          name: topics_favorites
+  select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+      - id
+      - name
+      - color
+      - image
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+      - color
+      - name
+      - id
+      - image
+      filter: {}
+      allow_aggregations: true
+- table:
+    schema: public
+    name: topics_favorites
+  object_relationships:
+  - name: topic
+    using:
+      foreign_key_constraint_on: topic_id
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+      - user_id
+      - topic_id
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - topic_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - topic_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: users_settings
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+      - theme
+      - user_id
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - user_id
+      - theme
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - theme
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check: null
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id

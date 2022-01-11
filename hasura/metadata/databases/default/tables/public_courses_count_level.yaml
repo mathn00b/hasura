@@ -1,0 +1,16 @@
+table:
+  name: courses_count_level
+  schema: public
+select_permissions:
+- permission:
+    columns:
+    - count
+    - level
+    filter: {}
+  role: anonymous
+- permission:
+    columns:
+    - level
+    - count
+    filter: {}
+  role: user

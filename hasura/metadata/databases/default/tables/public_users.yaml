@@ -1,0 +1,60 @@
+table:
+  name: users
+  schema: public
+array_relationships:
+- name: course_accesses
+  using:
+    foreign_key_constraint_on:
+      column: user_id
+      table:
+        name: course_accesses
+        schema: public
+- name: pre_orders
+  using:
+    foreign_key_constraint_on:
+      column: user_id
+      table:
+        name: pre_order
+        schema: public
+- name: school_users
+  using:
+    foreign_key_constraint_on:
+      column: user_id
+      table:
+        name: school_user
+        schema: public
+insert_permissions:
+- permission:
+    backend_only: false
+    check:
+      id:
+        _eq: X-Hasura-User-Id
+    columns:
+    - avatar
+    - display_name
+    - theme
+    set:
+      id: x-hasura-User-Id
+  role: user
+select_permissions:
+- permission:
+    columns:
+    - avatar
+    - display_name
+    - id
+    - theme
+    filter:
+      id:
+        _eq: X-Hasura-User-Id
+  role: user
+update_permissions:
+- permission:
+    check: null
+    columns:
+    - avatar
+    - display_name
+    - theme
+    filter:
+      id:
+        _eq: X-Hasura-User-Id
+  role: user
